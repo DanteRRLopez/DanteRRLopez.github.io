@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portafolio | DanteRRLopez</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+<body>
+  <div class="floating-objects" aria-hidden="true">
+    <div class="floating-item f1" data-related="proyecto-generation"><img src="assets/img/proyectos/proyecto-generation_hero.png" alt="Pawssible" style="width:48px;height:48px;border-radius:8px;object-fit:cover;"/></div>
+    <div class="floating-item f2" data-related="ad-07-blogsite"><img src="assets/img/proyectos/ad07_hero.png" alt="MotionMakers" style="width:44px;height:44px;border-radius:8px;object-fit:cover;"/></div>
+    <div class="floating-item f3" data-related="dom"><i class="fas fa-database"></i></div>
+    <div class="floating-item f4" data-related="fitgen"><img src="assets/img/proyectos/fitgen_hero.png" alt="FitGen" style="width:48px;height:48px;border-radius:8px;object-fit:cover;"/></div>
+    <div class="floating-item f5" data-related="front-end"><i class="fas fa-cloud"></i></div>
+    <div class="floating-item f6"><i class="fas fa-rocket"></i></div>
+  </div>
+  <nav class="nav">
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="portfolio.html" aria-current="page"><i class="fas fa-laptop-code"></i> Portafolio</a></li>
+      <li><a href="about.html"><i class="fas fa-child"></i> Acerca de mí</a></li>
+      <li><a href="cv.html"><i class="fas fa-file-alt"></i> CV</a></li>
+      <li><a href="blog.html"><i class="fas fa-pencil-alt"></i> Blog</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1>Portafolio</h1>
+    <p>Proyectos seleccionados: colaboración, landing pages, blog y autenticación.</p>
+
+    <div class="filters">
+      <button class="chip" data-filter="all" aria-pressed="true">Todo</button>
+      <button class="chip" data-filter="colaborativo">Colaborativo</button>
+      <button class="chip" data-filter="frontend">Front-end</button>
+      <button class="chip" data-filter="ui">UI</button>
+    </div>
+
+    <section id="grid" class="grid"></section>
+  </main>
+
+  <footer class="footer footer-portfolio">© <span id="year"></span> Dante Roberto Reyna López<a href="https://github.com/DanteRRLopez" target="_blank" rel="noopener"><img class="github-logo" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo"></a></footer>
+  <script src="scripts/render-portfolio.js"></script>
+</body>
+</html>
