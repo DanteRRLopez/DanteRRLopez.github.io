@@ -21,13 +21,14 @@
       <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
       <li><a href="portfolio.html" aria-current="page"><i class="fas fa-laptop-code"></i> Portafolio</a></li>
       <li><a href="about.html"><i class="fas fa-child"></i> Acerca de mí</a></li>
+      <li><a href="skills.html"><i class="fas fa-cloud"></i> Cloud & Data</a></li>
       <li><a href="cv.html"><i class="fas fa-file-alt"></i> CV</a></li>
       <li><a href="blog.html"><i class="fas fa-pencil-alt"></i> Blog</a></li>
     </ul>
   </nav>
 
   <main class="container">
-    <h1>Portafolio</h1>
+    <h1 class="title-with-icon"><i class="fas fa-laptop-code"></i> Portafolio</h1>
     <p>Proyectos seleccionados: colaboración, landing pages, blog y autenticación.</p>
 
     <div class="filters">
@@ -42,5 +43,49 @@
 
   <footer class="footer footer-portfolio">© <span id="year"></span> Dante Roberto Reyna López<a href="https://github.com/DanteRRLopez" target="_blank" rel="noopener"><img class="github-logo" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo"></a></footer>
   <script src="scripts/render-portfolio.js"></script>
+  <script>
+    // If running locally without a server, fetch() may be blocked by CORS/file protocol.
+    // As a fallback, load the inline dataset and render it.
+    (function fallbackIfEmpty(){
+      const tryInject = () => {
+        const grid = document.getElementById('grid');
+        // When render-portfolio runs and fails, it leaves fallback or empty; inject only if we find grid empty
+        if (grid && grid.children.length === 0) {
+          const s = document.createElement('script');
+          s.src = 'scripts/projects-inline.js';
+          s.onload = () => {
+            // Basic render to match current renderer
+            if (window.PROJECTS && Array.isArray(window.PROJECTS)) {
+              // Simple re-render using same card structure as render-portfolio.js
+              const items = window.PROJECTS;
+              grid.innerHTML = items.map(p => `
+                <article class="card" data-project-id="${p.slug}">
+                  <div class="card-chips">${(p.tipo||[]).slice(0,2).map(t => `<span class='card-chip ${t}'>${t}</span>`).join('')}</div>
+                  <div class="card-media">
+                    <img src="${p.thumb}" class="card-thumb" alt="Imagen del proyecto ${p.titulo}">
+                    <div class="tech-chips">${(p.tecnologias||[]).slice(0,3).map(t => `<span class='tech-chip ${t}'>${t}</span>`).join('')}</div>
+                  </div>
+                  <div class="card-body">
+                    <h3>${p.titulo}</h3>
+                    <p>${p.descripcion}</p>
+                    <div class="tags">${(p.tipo||[]).map(t => `<span class='tag'>${t}</span>`).join('')}</div>
+                    <div class="actions">
+                      <a href="${p.repo}" target="_blank" rel="noopener" class="btn">Código</a>
+                      ${p.demo ? `<a href='${p.demo}' target='_blank' rel='noopener' class='btn'>Demo</a>` : ''}
+                      ${p.video ? `<a href='${p.video}' target='_blank' rel='noopener' class='btn btn-secondary'>Vídeo</a>` : ''}
+                    </div>
+                  </div>
+                </article>
+              `).join('');
+            }
+          };
+          document.body.appendChild(s);
+        }
+      };
+      // Try after current call stack and a second pass after a short delay
+      setTimeout(tryInject, 80);
+      setTimeout(tryInject, 300);
+    })();
+  </script>
 </body>
 </html>

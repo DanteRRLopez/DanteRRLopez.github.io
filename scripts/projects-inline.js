@@ -1,0 +1,38 @@
+// Auto-generated fallback dataset for local file viewing without a server.
+// When fetch of scripts/projects.json fails (e.g., opened via file://),
+// render-portfolio.js will use this dataset.
+window.PROJECTS = [
+  {
+    "slug": "fitgen",
+    "titulo": "FITGEN (Primer Hackathon, CH59, Generation México)",
+    "tipo": ["colaborativo", "frontend", "ui"],
+    "descripcion": "E-commerce con catálogo de artículos deportivos para practicar tenis.",
+    "repo": "https://github.com/DanteRRLopez/FitGen",
+    "demo": "",
+    "thumb": "assets/img/proyectos/Proyecto-FITGEN.png",
+    "video": "assets/video/FITGEN.mp4",
+    "tecnologias": ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    "slug": "proyecto-generation",
+    "titulo": "Pawssible E-commerce (ProyectoGeneration)",
+    "tipo": ["colaborativo", "frontend", "ui"],
+    "descripcion": "Sitio e-commerce con catálogo dinámico de prótesis para perro.",
+    "repo": "https://github.com/DanteRRLopez/ProyectoGeneration",
+    "demo": "",
+    "thumb": "assets/img/proyectos/Proyecto-Generation.png",
+    "video": "assets/video/Pawssible.mp4",
+    "tecnologias": ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    "slug": "ad-07-blogsite",
+    "titulo": "Proyecto MotionMakers",
+    "tipo": ["colaborativo", "frontend"],
+    "descripcion": "Sitio estilo revista/blog con secciones y maquetación responsiva.",
+    "repo": "https://github.com/DanteRRLopez/AD-07-BlogSite",
+    "demo": "",
+    "thumb": "assets/img/proyectos/Proyecto-MotionMakers.png",
+    "video": "assets/video/BlogMotionMakers.mp4",
+    "tecnologias": ["HTML", "CSS", "JavaScript"]
+  }
+];

@@ -10,6 +10,7 @@
   --footer-portfolio: #3182ce;
   --footer-blog: #2b6cb0;
   --footer-cv: #2c5282;
+  --footer-skills: #1e40af;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
@@ -149,7 +150,7 @@ a:hover { text-decoration: underline; }
   }
 
   /* Glassmorphism effect for cards */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.1rem; margin-top: 1rem; }
 .card { 
   background: #2d3748; 
   border: 1px solid #4a5568; 
@@ -157,18 +158,51 @@ a:hover { text-decoration: underline; }
   overflow: hidden; 
   display: flex; 
   flex-direction: column;
+  position: relative;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+  border-color: rgba(255,255,255,0.22);
 }
 .card-thumb { 
   aspect-ratio: 16/9; 
   width: 100%; 
   object-fit: cover; 
   background: #2d3748; 
+  transition: transform 0.25s ease;
+}
+.card-media {
+  position: relative;
+}
+.tech-chips {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+.tech-chip {
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  backdrop-filter: blur(2px);
+}
+.tech-chip.HTML { background: #e34f26; color: #fff; }
+.tech-chip.CSS { background: #1572B6; color: #fff; }
+.tech-chip.JavaScript { background: #F7DF1E; color: #111827; border-color: rgba(0,0,0,0.12);} 
+.card:hover .card-thumb { transform: scale(1.03); }
+
+@media (prefers-reduced-motion: reduce) {
+  .card-thumb { transition: none; }
+  .card:hover .card-thumb { transform: none; }
 }
 .card-body { padding: 1rem; display: grid; gap: .6rem; }
 .tags { display: flex; flex-wrap: wrap; gap: .4rem; }
@@ -299,3 +333,268 @@ a:hover { text-decoration: underline; }
   .nav-links { width: 100%; display: none; flex-direction: column; }
   .nav-links.open { display: flex; }
 }
+
+/* Larger cards on wide screens, ensure no overflow on small screens */
+@media (min-width: 1200px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
+}
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* Estilos específicos para la página de Cloud & Data */
+.cloud-profile-card {
+  background: rgba(66, 133, 244, 0.1);
+  border: 1px solid rgba(66, 133, 244, 0.3);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-header h3 {
+  margin: 0;
+  color: var(--brand);
+  font-size: 1.3rem;
+}
+
+.achievement-badge {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(66, 133, 244, 0.25);
+  border-radius: 0.8rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.league-badge {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.achievement-text {
+  flex: 1;
+}
+
+.achievement-text strong {
+  display: block;
+  font-size: 1.5rem;
+  color: #90cdf4;
+  margin-bottom: 0.3rem;
+}
+
+.achievement-text p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.cert-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  border-color: rgba(66, 133, 244, 0.4);
+}
+
+.cert-icon {
+  font-size: 2.5rem;
+  /* Multicolor gradient for better contrast */
+  background: linear-gradient(135deg, #EA4335, #FBBC05, #34A853, #4285F4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+}
+
+.cert-card h4 {
+  margin: 0.5rem 0;
+  color: var(--brand);
+  font-size: 1.1rem;
+}
+
+.cert-date {
+  color: #90cdf4;
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+
+.cert-card p:last-child {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0.8rem 0 0;
+  line-height: 1.5;
+}
+
+/* Colored logos for certification cards */
+.cert-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 0.6rem;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+}
+
+/* Category accents */
+.cert-card.gcp {
+  border-color: rgba(66, 133, 244, 0.35);
+}
+.cert-card.gcp:hover {
+  box-shadow: 0 8px 20px rgba(66, 133, 244, 0.25);
+}
+
+.cert-card.terraform {
+  border-color: rgba(100, 86, 255, 0.35);
+}
+.cert-card.terraform:hover {
+  box-shadow: 0 8px 20px rgba(100, 86, 255, 0.25);
+}
+
+.cert-card.network {
+  border-color: rgba(52, 168, 83, 0.35);
+}
+.cert-card.network:hover {
+  box-shadow: 0 8px 20px rgba(52, 168, 83, 0.25);
+}
+
+/* Certification chips */
+.cert-chip {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: #0b1220;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.9);
+}
+.cert-chip.gcp { color: #0b1f3a; background: rgba(66,133,244,0.2); border-color: rgba(66,133,244,0.45); }
+.cert-chip.terraform { color: #1a133d; background: rgba(100,86,255,0.2); border-color: rgba(100,86,255,0.45); }
+.cert-chip.network { color: #0f2b18; background: rgba(52,168,83,0.2); border-color: rgba(52,168,83,0.45); }
+
+/* Project card chips (reuse style but separate class) */
+.card-chips {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  z-index: 2;
+}
+
+.card-chip {
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  backdrop-filter: blur(2px);
+}
+.card-chip.colaborativo {
+  background: #2563EB; /* blue-600 */
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.22);
+}
+.card-chip.frontend {
+  background: #F59E0B; /* amber-500 */
+  color: #111827; /* gray-900 for contrast */
+  border-color: rgba(0,0,0,0.12);
+}
+.card-chip.ui {
+  background: #EC4899; /* pink-500 */
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.22);
+}
+
+.skills-section h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Responsive adjustments for Cloud & Data page */
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .achievement-badge {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .certifications-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Title icons for headings */
+.title-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.title-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  display: inline-block;
+  object-fit: contain;
+}
+
+/* Slight polish for league badge image */
+.league-badge {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+}
+
+/* Brand color utilities and contrast helpers for Cloud & Data icons */
+.icon-contrast { text-shadow: 0 1px 1px rgba(0,0,0,0.6), 0 0 2px rgba(0,0,0,0.45); }
+.logo-contrast { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
+
+.icon-gcp-blue { color: #4285F4; }
+.icon-gcp-green { color: #34A853; }
+.icon-gcp-yellow { color: #FBBC04; }
+.icon-gcp-red { color: #EA4335; }
+.icon-k8s { color: #326CE5; }
+.icon-terraform { color: #7B42BC; }
+.icon-lookerstudio { color: #1A73E8; }
+.icon-excel { color: #217346; }
+.icon-powerbi { color: #F2C811; }
