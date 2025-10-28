@@ -16,7 +16,7 @@ Muestra de proyectos destacados con vídeos y enlaces a repositorios de GitHub:
 ### 👤 Acerca de mí (`about.html`)
 Resumen profesional, tecnologías, experiencia relevante y formación académica.
 
-### ☁️ Cloud & Data (`skills.html`) ⭐ NUEVA
+### ☁️ Cloud & Data (`cloud&analytics.html`) ⭐ NUEVA
 Sección dedicada a habilidades en:
 - **Google Cloud Platform (GCP)**: Certificaciones, badges y perfil público de Google Cloud Skills Boost
 - **Análisis de Datos**: Herramientas y experiencia en procesamiento y visualización de datos
@@ -56,7 +56,7 @@ Publicación del portafolio en GitHub Pages en el repositorio llamado `DanteRRLo
 ├── index.html
 ├── portfolio.html
 ├── about.html
-├── skills.html          # ⭐ NUEVA PÁGINA
+├── cloud&analytics.html          # ⭐ NUEVA PÁGINA (renombrada desde skills.html)
 ├── cv.html
 ├── blog.html
 ├── README.md
