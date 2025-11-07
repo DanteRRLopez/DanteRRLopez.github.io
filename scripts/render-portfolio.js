@@ -33,7 +33,7 @@
       </article>`;
   }
 
-  // Render function that also binds interactions after DOM update
+  // Función de renderizado que además vincula interacciones después de actualizar el DOM
   function render(items) {
     $grid.innerHTML = items.map(card).join('');
     bindFloatingInteractions();
@@ -46,7 +46,7 @@
     projects = await res.json();
   } catch (e) {
     console.error('No se pudo cargar projects.json', e);
-    // Fallback minimal para no dejar vacío el grid
+  // Recuperación mínima para no dejar vacío el grid
     projects = [
       {
         slug: 'fallback',
@@ -61,7 +61,7 @@
     ];
   }
 
-  // Interaction: highlight floating object related to project on hover
+  // Interacción: resaltar el objeto flotante relacionado con el proyecto al pasar el cursor
   function bindFloatingInteractions() {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
@@ -86,14 +86,14 @@
     });
   }
 
-  // Initial render (only after we have projects)
+  // Render inicial (solo después de que tengamos projects)
   if (Array.isArray(projects) && projects.length) {
     render(projects);
   } else {
     $grid.innerHTML = '<p>No hay proyectos para mostrar.</p>';
   }
 
-  // Filter buttons
+  // Botones de filtrado
   $chips.forEach(chip => {
     chip.addEventListener('click', () => {
       $chips.forEach(c => c.setAttribute('aria-pressed', 'false'));

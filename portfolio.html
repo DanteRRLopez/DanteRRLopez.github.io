@@ -8,6 +8,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
 <body>
+  <!--
+    RASTREO DE SELECTORES (portfolio.html)
+    - Selectores clave:
+      * .floating-objects / .floating-item[data-related]  -> relacionan iconos flotantes con tarjetas (.card[data-project-id])
+      * .nav / .nav-links
+      * .grid (contenedor de .card)                       -> renderizado por scripts/render-portfolio.js o scripts/projects-inline.js
+      * .filters / .chip                                  -> filtros interactivos (JS puede usar data-filter)
+      * .card / .card-media / .card-thumb / .card-body    -> estructura de tarjeta usada por render-portfolio
+    - Archivos relacionados:
+      * CSS: assets/css/styles.css
+      * JS: scripts/render-portfolio.js, scripts/main.js (bindFloatingHover), scripts/projects-inline.js (fallback)
+  -->
+
   <div class="floating-objects" aria-hidden="true">
     <div class="floating-item f1" data-related="proyecto-generation"><img src="assets/img/proyectos/proyecto-generation_hero.png" alt="Pawssible" style="width:48px;height:48px;border-radius:8px;object-fit:cover;"/></div>
     <div class="floating-item f2" data-related="ad-07-blogsite"><img src="assets/img/proyectos/ad07_hero.png" alt="MotionMakers" style="width:44px;height:44px;border-radius:8px;object-fit:cover;"/></div>
@@ -45,19 +58,19 @@
   <footer class="footer footer-portfolio">© <span id="year"></span> Dante Roberto Reyna López<a href="https://github.com/DanteRRLopez" target="_blank" rel="noopener"><img class="github-logo" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo"></a></footer>
   <script src="scripts/render-portfolio.js"></script>
   <script>
-    // If running locally without a server, fetch() may be blocked by CORS/file protocol.
-    // As a fallback, load the inline dataset and render it.
+    // Si estás abriendo el HTML localmente sin servidor, fetch() puede fallar por CORS/protocolo file://
+    // Como estrategia de recuperación, inyectamos un dataset inline y renderizamos si no hay contenido.
     (function fallbackIfEmpty(){
       const tryInject = () => {
         const grid = document.getElementById('grid');
-        // When render-portfolio runs and fails, it leaves fallback or empty; inject only if we find grid empty
+        // Si render-portfolio.js no inyectó tarjetas (por fallo en fetch), insertamos el dataset de fallback
         if (grid && grid.children.length === 0) {
           const s = document.createElement('script');
           s.src = 'scripts/projects-inline.js';
           s.onload = () => {
-            // Basic render to match current renderer
+            // Render básico para coincidir con el renderizador actual
             if (window.PROJECTS && Array.isArray(window.PROJECTS)) {
-              // Simple re-render using same card structure as render-portfolio.js
+              // Re-render sencillo usando la misma estructura de tarjeta que render-portfolio.js
               const items = window.PROJECTS;
               grid.innerHTML = items.map(p => `
                 <article class="card" data-project-id="${p.slug}">
@@ -83,7 +96,7 @@
           document.body.appendChild(s);
         }
       };
-      // Try after current call stack and a second pass after a short delay
+      // Intentar después del stack de llamadas actual y una segunda pasada tras un breve retardo
       setTimeout(tryInject, 80);
       setTimeout(tryInject, 300);
     })();

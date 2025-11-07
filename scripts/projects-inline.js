@@ -1,6 +1,6 @@
-// Auto-generated fallback dataset for local file viewing without a server.
-// When fetch of scripts/projects.json fails (e.g., opened via file://),
-// render-portfolio.js will use this dataset.
+// Dataset de fallback generado automáticamente para visualizar localmente sin un servidor.
+// Cuando fetch de scripts/projects.json falla (por ejemplo, al abrir con file://),
+// render-portfolio.js usará este dataset para mostrar las tarjetas.
 window.PROJECTS = [
   {
     "slug": "fitgen",

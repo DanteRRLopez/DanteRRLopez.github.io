@@ -1,3 +1,17 @@
+/*
+  Comentarios en español añadidos.
+  Propósito: documentar los selectores/clases principales, indicar en qué archivos HTML/JS se usan
+  y facilitar el rastreo de dependencias entre HTML, CSS y JS.
+
+  Nota: este archivo contiene reglas que afectan a todas las páginas del portafolio.
+  Archivos relacionados (uso de clases en HTML):
+    - index.html: .hero, .floating-objects, .nav, .hero-img
+    - portfolio.html: .grid, .card, .floating-item, .filters, .chip
+    - cloud&analytics.html: .skills-section, .skills-group, .certifications-grid
+    - project-management.html: .cert-card, .cert-provider, .cert-logo
+    - cv.html / about.html / blog.html: .title-with-icon, .skills-section
+  Archivo JS que interactúa con estos selectores: scripts/main.js (animaciones & bindings)
+*/
 :root {
   --bg: #2a4365;
   --panel: #3182ce;
@@ -19,11 +33,21 @@ a:hover { text-decoration: underline; }
 .container { width: min(1100px, 92%); margin: 2rem auto; }
 
 .nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: var(--panel); position: sticky; top: 0; z-index: 10; }
+/*
+  Selector: .nav
+  Uso en HTML: presente en todos los archivos como barra superior (index.html, portfolio.html, about.html, cv.html, blog.html, cloud&analytics.html, project-management.html)
+  JS: scripts/main.js manipula #nav-links y .nav-toggle para abrir/cerrar en pantallas pequeñas
+*/
 .brand { font-weight: 700; letter-spacing: .4px; }
 .nav-links { display: flex; gap: 1rem; list-style: none; margin: 0; padding: 0; }
 .nav-links a[aria-current='page'] { color: var(--accent); }
 
 .site-header .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 2rem; padding: 3rem 2rem 2rem; align-items: center; }
+/*
+  Selectores: .site-header .hero, .hero-text, .hero-img
+  Uso: index.html (sección principal / hero)
+  JS: animateHome() en scripts/main.js anima .hero-text h1, .hero-text p y .hero-img
+*/
 .hero-text h1 { font-size: clamp(1.8rem, 1.6rem + 1.2vw, 2.6rem); margin: 0 0 .5rem; }
 .hero-text p { color: var(--muted); }
 .hero-img { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; justify-self: center; border: 3px solid var(--brand); }
@@ -80,8 +104,11 @@ a:hover { text-decoration: underline; }
 }
 
 
-  /* Objetos flotantes para
-  la página del portafolio. */
+  /*
+    Objetos flotantes (floating-objects)
+    Uso en HTML: portfolio.html, index.html, about.html, cloud&analytics.html, project-management.html
+    JS: scripts/main.js enlaza eventos hover a .floating-item[data-related] para resaltar tarjetas relacionadas
+  */
   .floating-objects {
     position: fixed;
     inset: 0;
@@ -92,10 +119,15 @@ a:hover { text-decoration: underline; }
   .floating-item {
     position: absolute;
     font-size: 2.2rem;
-    opacity: 0.14;
-    color: var(--brand);
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    /* Atenuamos color y opacidad para no distraer la lectura */
+    opacity: 0.08;
+    color: rgba(230,234,237,0.12); /* versión tenue de var(--brand) */
+    transition: transform 0.2s ease, opacity 0.2s ease, color 0.25s ease;
     will-change: transform;
+    /* Evitar que los elementos flotantes intercepten eventos y asegurar que
+       no queden por encima del contenido principal durante animaciones */
+    z-index: 0;
+    pointer-events: none;
   }
 
   .floating-item img {
@@ -104,16 +136,19 @@ a:hover { text-decoration: underline; }
     height: 48px;
     object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    /* Hacer las miniaturas más tenues: menos sombra y saturación reducida */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+    opacity: 0.86;
+    filter: grayscale(18%) saturate(70%);
   }
 
-  /* Individual positions and subtle timing to avoid overlap */
+  /* Posiciones individuales y tiempos sutiles para evitar solapamientos */
   .floating-item.f1 { left: 6%; top: 18%; animation: floatA 10s ease-in-out infinite; }
-  .floating-item.f2 { left: 22%; top: 70%; font-size: 1.9rem; animation: floatB 12s ease-in-out infinite; color: #90cdf4; }
-  .floating-item.f3 { left: 46%; top: 8%; animation: floatC 14s ease-in-out infinite; color: #b7a4f0; }
-  .floating-item.f4 { left: 74%; top: 24%; font-size: 2rem; animation: floatB 11s ease-in-out infinite; color: #63b3ed; }
-  .floating-item.f5 { left: 84%; top: 66%; font-size: 1.8rem; animation: floatA 13s ease-in-out infinite; color: #7dd3fc; }
-  .floating-item.f6 { left: 52%; top: 54%; font-size: 2.4rem; animation: floatC 9s ease-in-out infinite; color: #fff; opacity: 0.12; }
+  .floating-item.f2 { left: 22%; top: 70%; font-size: 1.9rem; animation: floatB 12s ease-in-out infinite; color: rgba(144,205,244,0.22); }
+  .floating-item.f3 { left: 46%; top: 8%; animation: floatC 14s ease-in-out infinite; color: rgba(183,164,240,0.20); }
+  .floating-item.f4 { left: 74%; top: 24%; font-size: 2rem; animation: floatB 11s ease-in-out infinite; color: rgba(99,179,237,0.20); }
+  .floating-item.f5 { left: 84%; top: 66%; font-size: 1.8rem; animation: floatA 13s ease-in-out infinite; color: rgba(125,211,252,0.18); }
+  .floating-item.f6 { left: 52%; top: 54%; font-size: 2.4rem; animation: floatC 9s ease-in-out infinite; color: rgba(255,255,255,0.08); opacity: 0.08; }
 
   @keyframes floatA {
     0% { transform: translateY(0) rotate(-2deg); }
@@ -121,7 +156,8 @@ a:hover { text-decoration: underline; }
     100% { transform: translateY(0) rotate(-2deg); }
   }
 
-/* Highlighted card when its floating item or card is hovered */
+  /* Tarjeta resaltada cuando se hace hover sobre su elemento flotante o sobre la tarjeta */
+  /* Clase .floating-highlight aplicada por scripts/main.js */
 .card.floating-highlight {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 12px 24px rgba(0,0,0,0.18);
@@ -140,16 +176,26 @@ a:hover { text-decoration: underline; }
     100% { transform: translateY(0) rotate(1deg); }
   }
 
-  /* Asegurar posición del contenido principal sobre los objetos flotantes */
-  .container { position: relative; z-index: 1; }
+  /*
+    Asegurar posición del contenido principal sobre los objetos flotantes
+    Ajuste: elevamos el z-index del contenedor principal para que el texto
+    y el contenido queden siempre por encima de elementos decorativos
+    o animados (por ejemplo .floating-item).
+  */
+  .container { position: relative; z-index: 6; }
 
-  /* Make floating objects less intrusive on small screens */
+  /* Reducir la intrusividad de objetos flotantes en pantallas pequeñas */
   @media (max-width: 900px) {
     .floating-item { opacity: 0.08; }
     .floating-item.f1, .floating-item.f3 { display: none; }
   }
 
-  /* Glassmorphism effect for cards */
+  /*
+    Tarjetas de proyectos y cards generales
+    Selectores clave: .grid, .card, .card-thumb, .card-body
+    Uso HTML: portfolio.html (render-portfolio.js crea .card con estructura), otras páginas usan .card para mostrar contenido similar
+    JS: animatePortfolio() y las animaciones on-scroll en scripts/main.js animan .card
+  */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.1rem; margin-top: 1rem; }
 .card { 
   background: #2d3748; 
@@ -242,6 +288,12 @@ a:hover { text-decoration: underline; }
 }
 .chip[aria-pressed='true'] { border-color: var(--brand); color: var(--brand); }
 
+/*
+  Sección de habilidades (skills-section)
+  Uso HTML: cv.html, cloud&analytics.html, cv.html
+  Selectores internos: .skills-group, .skills-list, .skill-item
+  JS: animateCloud() y observador on-scroll animan .skills-group y .skill-item
+*/
 .skills-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -249,6 +301,7 @@ a:hover { text-decoration: underline; }
   margin: 2rem 0;
 }
 
+/* Contenedor de grupo de habilidades: .skills-group */
 .skills-group {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 1rem;
@@ -334,7 +387,7 @@ a:hover { text-decoration: underline; }
   .nav-links.open { display: flex; }
 }
 
-/* Larger cards on wide screens, ensure no overflow on small screens */
+/* Tarjetas más grandes en pantallas anchas; prevenir desbordes en pantallas pequeñas */
 @media (min-width: 1200px) {
   .grid { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
 }
@@ -401,6 +454,12 @@ a:hover { text-decoration: underline; }
   font-size: 0.95rem;
 }
 
+/*
+  Contenedores de certificaciones
+  Selectores: .certifications-grid, .cert-card, .cert-logo, .cert-chip
+  Uso HTML: cloud&analytics.html, project-management.html
+  JS: animateCerts() y observer on-scroll en scripts/main.js
+*/
 .certifications-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -408,6 +467,7 @@ a:hover { text-decoration: underline; }
   margin: 1.5rem 0;
 }
 
+/* Tarjeta de certificación: .cert-card */
 .cert-card {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -426,7 +486,7 @@ a:hover { text-decoration: underline; }
 
 .cert-icon {
   font-size: 2.5rem;
-  /* Multicolor gradient for better contrast */
+  /* Degradado multicolor para mayor contraste */
   background: linear-gradient(135deg, #EA4335, #FBBC05, #34A853, #4285F4);
   -webkit-background-clip: text;
   background-clip: text;
@@ -457,7 +517,10 @@ a:hover { text-decoration: underline; }
   line-height: 1.5;
 }
 
-/* Colored logos for certification cards */
+/* Logos coloreados para tarjetas de certificación */
+/* Logo de certificación: .cert-logo
+  Uso: img dentro de .cert-provider en project-management.html y cloud&analytics.html
+*/
 .cert-logo {
   width: 42px;
   height: 42px;
@@ -497,7 +560,7 @@ a:hover { text-decoration: underline; }
 .cert-provider img { width: 100%; height: 100%; object-fit: contain; filter: none; }
 .cert-card .cert-provider { display: inline-flex; align-items: center; justify-content: center; }
 
-/* Category accents */
+/* Acentos por categoría */
 .cert-card.gcp {
   border-color: rgba(66, 133, 244, 0.35);
 }
@@ -519,7 +582,7 @@ a:hover { text-decoration: underline; }
   box-shadow: 0 8px 20px rgba(52, 168, 83, 0.25);
 }
 
-/* Certification chips */
+/* Chips de certificación */
 .cert-chip {
   position: absolute;
   top: 10px;
@@ -596,7 +659,6 @@ a:hover { text-decoration: underline; }
   }
 }
 
-/* Title icons for headings */
 .title-with-icon {
   display: flex;
   align-items: center;
